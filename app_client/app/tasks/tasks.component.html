@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>My Task List {{name}}</h1>
+  <hr>
+  <div class="well container">
+    <input type="text" class="col-md-6" [(ngModel)]="title" placeholder="Add Task here...">
+    <div class="col-md-6">
+      <button class="btn btn-success" (click)="addTask()">Add</button>
+    </div>
+  </div>
+
+  <div class="task-list" *ngFor="let task of tasks">
+    <div class="col-md-1">
+      <input type="checkbox" [(ngModel)]="task.isDone" (click)="updateIsDone(task)">
+    </div>
+    <div class="col-md-7">
+      <div>
+        {{task.title}}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-danger" (click)="deleteTask(task._id)">Delete</button>
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="notifyChild()">Notify Child</button>
+</div>
+
+<hr>
+<hr>
+<child-task [(name)]="name" (notifyParent)="getMessageFromChild($event)" [parentSubject]="parentSubject"></child-task>

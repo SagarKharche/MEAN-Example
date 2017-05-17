@@ -37,7 +37,6 @@ module.exports.login = function(req, res) {
       res.status(404).json(err);
       return;
     }
-
     // If a user is found
     if (user) {
       token = user.generateJwt();

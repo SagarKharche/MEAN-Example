@@ -43,6 +43,13 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 app.use(passport.initialize());
 
 // [SH] Use the API routes when path starts with /api
+// Allow CORS requests
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 app.use('/api', routesApi);
 
 // [SH] Otherwise render the index.html page for the Angular SPA

@@ -19,6 +19,9 @@ router.post('/login', ctrlAuth.login);
 
 // Task
 router.get('/tasks', auth, tasks.getTasks);
-router.post('/tasks', auth, tasks.createTask);
+router.post('/task', auth, tasks.createTask);
+router.get('/task/:id', auth, tasks.getTaskById);
+router.delete('/task/:id', tasks.deleteTask);
+router.put('/task/:id', tasks.updateTask);
 
 module.exports = router;
