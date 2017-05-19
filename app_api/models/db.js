@@ -49,3 +49,4 @@ process.on('SIGTERM', function() {
 // BRING IN YOUR SCHEMAS & MODELS
 require('./tasksModel');
 require('./usersModel');
+require('./productsModel');

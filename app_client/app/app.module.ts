@@ -17,6 +17,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { ChildTaskComponent } from './tasks/child-task/child-task.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 
 import { ROUTES } from './app.routes';
 
@@ -26,7 +27,8 @@ import { ROUTES } from './app.routes';
     TasksComponent,
     ChildTaskComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

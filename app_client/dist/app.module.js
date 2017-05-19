@@ -21,6 +21,7 @@ var tasks_component_1 = require("./tasks/tasks.component");
 var child_task_component_1 = require("./tasks/child-task/child-task.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
+var home_component_1 = require("./home/home.component");
 var app_routes_1 = require("./app.routes");
 var AppModule = (function () {
     function AppModule() {
@@ -34,7 +35,8 @@ AppModule = __decorate([
             tasks_component_1.TasksComponent,
             child_task_component_1.ChildTaskComponent,
             login_component_1.LoginComponent,
-            register_component_1.RegisterComponent
+            register_component_1.RegisterComponent,
+            home_component_1.HomeComponent
         ],
         imports: [
             platform_browser_1.BrowserModule,

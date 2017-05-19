@@ -23,7 +23,7 @@ var AppComponent = (function () {
                     _this.router.navigate(['../'], { relativeTo: _this.activatedRoute });
                 }
                 else if (event.url === '/' && _this.sessionService.getAuthToken()) {
-                    _this.router.navigate(['tasks'], { relativeTo: _this.activatedRoute });
+                    _this.router.navigate(['home'], { relativeTo: _this.activatedRoute });
                 }
             }
         });

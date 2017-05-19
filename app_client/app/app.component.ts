@@ -18,7 +18,7 @@ export class AppComponent {
         if (!this.sessionService.getAuthToken() && event.url !== '/') {
           this.router.navigate(['../'], { relativeTo: this.activatedRoute });
         } else if (event.url === '/' && this.sessionService.getAuthToken()) {
-          this.router.navigate(['tasks'], { relativeTo: this.activatedRoute });
+          this.router.navigate(['home'], { relativeTo: this.activatedRoute });
         }
       }
 
