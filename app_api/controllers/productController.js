@@ -8,8 +8,10 @@ module.exports.addProduct = function(req, res, next) {
   product.sellerName = req.body.sellerName;
   product.productPrice = req.body.productPrice;
   product.productStars = req.body.productStars;
+  product.productType = req.body.productType;
   product.save(function(err, item) {
     if (err) {
+      res.status(404);
       res.send(err);
     }
     res.json(item);

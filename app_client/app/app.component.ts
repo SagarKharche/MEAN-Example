@@ -15,10 +15,14 @@ export class AppComponent {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        if (!this.sessionService.getAuthToken() && event.url !== '/') {
+        if (!this.sessionService.getAuthToken() && event.url !== '/' && event.url !== '/register') {
           this.router.navigate(['../'], { relativeTo: this.activatedRoute });
-        } else if (event.url === '/' && this.sessionService.getAuthToken()) {
+        }
+        if (event.url === '/' && this.sessionService.getAuthToken()) {
           this.router.navigate(['home'], { relativeTo: this.activatedRoute });
+        }
+        if (!this.sessionService.getAuthToken() && event.url !== '/'&& event.url === '/register') {
+          this.router.navigate(['register'], { relativeTo: this.activatedRoute });
         }
       }
 

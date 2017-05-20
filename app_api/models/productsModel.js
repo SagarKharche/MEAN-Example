@@ -1,4 +1,15 @@
 var mongoose = require('mongoose');
+var productDetails = require('../constant/strings');
+
+var validateProductType = function(productType) {
+  var flag = false;
+  productDetails.productTypes.forEach(function(product) {
+    if (product.value === productType) {
+      flag = true;
+    }
+  });
+  return flag;
+}
 
 var productSchema = new mongoose.Schema({
   title: {
@@ -16,6 +27,11 @@ var productSchema = new mongoose.Schema({
   productStars: {
     type: Number,
     required: true
+  },
+  productType: {
+    type: String,
+    required: true,
+    validate: [validateProductType, 'Product type is not found']
   }
 });
 

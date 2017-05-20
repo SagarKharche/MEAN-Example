@@ -19,11 +19,14 @@ var AppComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.router.events.subscribe(function (event) {
             if (event instanceof router_1.NavigationStart) {
-                if (!_this.sessionService.getAuthToken() && event.url !== '/') {
+                if (!_this.sessionService.getAuthToken() && event.url !== '/' && event.url !== '/register') {
                     _this.router.navigate(['../'], { relativeTo: _this.activatedRoute });
                 }
-                else if (event.url === '/' && _this.sessionService.getAuthToken()) {
+                if (event.url === '/' && _this.sessionService.getAuthToken()) {
                     _this.router.navigate(['home'], { relativeTo: _this.activatedRoute });
+                }
+                if (!_this.sessionService.getAuthToken() && event.url !== '/' && event.url === '/register') {
+                    _this.router.navigate(['register'], { relativeTo: _this.activatedRoute });
                 }
             }
         });
