@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.authenticationService.login(this.credentials).subscribe((response) => {
       this.sessionService.setAuthToken(response.token);
+      this.sessionService.setUserDetails(response.userDetails);
       this.authenticationService.notifyLoggedIn();
       this.router.navigate(['home'], {relativeTo: this.activatedRoute});
     });

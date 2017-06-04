@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 /* Importing Services */
 import { ProductsService } from '../../service/products.service';
+import { SessionService } from '../../service/session.service';
 
 @Component({
   selector: 'product-details',
@@ -16,7 +17,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private sessionService: SessionService
   ) { }
 
   public ngOnInit() {
@@ -32,6 +34,17 @@ export class ProductDetailsComponent implements OnInit {
   public getProductDetails(): void {
     this.productsService.getProductDetails(this.productId).subscribe((response) => {
       this.productDetails = response;
+    });
+  }
+
+  public addToCart(): void {
+    var param = {
+      productId: this.productDetails._id,
+      customerId: this.sessionService.getUserDetails()._id,
+      quantity: 1
+    }
+    this.productsService.addProductToCart(param).subscribe((response) => {
+      console.log(response);
     });
   }
 }

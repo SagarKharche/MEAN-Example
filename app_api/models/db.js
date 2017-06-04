@@ -50,3 +50,4 @@ process.on('SIGTERM', function() {
 require('./tasksModel');
 require('./usersModel');
 require('./productsModel');
+require('./cartModel');
