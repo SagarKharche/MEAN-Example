@@ -25,5 +25,16 @@ module.exports.getAllProducts = function(req, res, next) {
       res.send(err);
     }
     res.json(products)
-  })
+  });
+}
+
+// GET Product By Id
+module.exports.getProductById = function(req, res, next) {
+  Product.findById({ _id: req.params.id }, (err, product) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    }
+    res.json(product)
+  });
 }

@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <div class="image-container"><img style="width:80%;" src="../../assets/iphone.jpg" alt="product"></div>
+    </div>
+    <div class="col-md-8">
+      <div>{{ productDetails.title }}</div>
+      <p> Seller: {{ productDetails.sellerName }}</p>
+      <p>Price: {{ productDetails.productPrice | currency:'USD':true:'1.2-2' }}</p>
+      <p><button class="btn btn-primary"> Add to Cart</button></p>
+    </div>
+  </div>

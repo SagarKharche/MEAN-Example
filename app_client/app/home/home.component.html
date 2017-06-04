@@ -1,12 +1,11 @@
-<div class="row">
-  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <div class="container">
-      <div class="col-md-2 text-center"><a routerLink="/home">Home</a></div>
-      <div class="col-md-2 text-center"><a>Your Orders</a></div>
-      <div class="col-md-2 text-center"><a>Orders History</a></div>
-      <div class="col-md-2 text-center"><a routerLink="/tasks">Profile</a></div>
-      <div class="col-md-2 text-center"><a>Cart</a></div>
-      <div class="col-md-2 text-center"><a>Logout</a></div>
+<div class="container">
+  <div class="col-md-12">
+    <div class="col-md-4" *ngFor="let product of products">
+      <div class="image-container"><img style="width:40%;" src="../../assets/iphone.jpg" alt="product"></div>
+      <div>{{ product.title }}</div>
+      <p> Seller: {{ product.sellerName }}</p>
+      <p>Price: {{ product.productPrice | currency:'USD':true:'1.2-2' }}</p>
+      <p><button class="btn btn-primary" routerLink="/home/{{product._id}}">View Details</button></p>
     </div>
-  </nav>
+  </div>
 </div>

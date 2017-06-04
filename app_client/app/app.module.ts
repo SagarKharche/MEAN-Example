@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { DatepickerModule, AlertModule } from 'ng2-bootstrap';
 import { RouterModule } from '@angular/router';
 
 /* Importing Services */
 import { AuthenticationService} from './service/authentication.service';
 import { SessionService } from './service/session.service';
 import { TaskService } from './service/task.service';
+import { ProductsService } from './service/products.service';
 
 /* Importing Component */
 import { AppComponent } from './app.component';
@@ -18,6 +18,8 @@ import { ChildTaskComponent } from './tasks/child-task/child-task.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { ProductDetailsComponent } from './home/product-details/product-details.component';
+import { HeaderComponent } from './header/header.component';
 
 import { ROUTES } from './app.routes';
 
@@ -28,7 +30,9 @@ import { ROUTES } from './app.routes';
     ChildTaskComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,8 @@ import { ROUTES } from './app.routes';
   providers: [
     TaskService,
     AuthenticationService,
-    SessionService
+    SessionService,
+    ProductsService
   ],
   bootstrap: [AppComponent]
 })

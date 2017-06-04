@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
 
+/* Importing Services */
 import { AuthenticationService } from '../service/authentication.service';
 import { SessionService } from '../service/session.service';
 
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.authenticationService.login(this.credentials).subscribe((response) => {
       this.sessionService.setAuthToken(response.token);
-      this.router.navigate(['tasks'], {relativeTo: this.activatedRoute});
+      this.authenticationService.notifyLoggedIn();
+      this.router.navigate(['home'], {relativeTo: this.activatedRoute});
     });
   }
 }

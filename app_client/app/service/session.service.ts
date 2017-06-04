@@ -12,4 +12,7 @@ export class SessionService {
     return sessionStorage.getItem('token');
   }
 
+  public removeAuthToken(): void {
+    sessionStorage.removeItem('token');
+  }
 }
