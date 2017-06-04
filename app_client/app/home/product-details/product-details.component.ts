@@ -39,7 +39,10 @@ export class ProductDetailsComponent implements OnInit {
 
   public addToCart(): void {
     var param = {
-      productId: this.productDetails._id,
+      product: { 
+        productId: this.productDetails._id,
+        quantity: 1
+      },
       customerId: this.sessionService.getUserDetails()._id,
       quantity: 1
     }

@@ -41,14 +41,12 @@ module.exports.getProductById = function(req, res, next) {
 }
 
 // POST Save Cart by Product Id and Customer Id
-
 module.exports.saveProductInCart = function(req, res, next) {
   var cart = new Cart();
-  cart.productId = req.body.productId;
+  cart.products = req.body.product;
   cart.customerId = req.body.customerId;
-  //cart.quantity = req.body.quantity;
   Cart.find({ customerId: req.body.customerId }, function(err, cartResult) {
-    if (err) {
+    if (!cartResult.length) {
       cart.save(function(err, cartDetails) {
         if (err) {
           res.status(404);
@@ -57,15 +55,60 @@ module.exports.saveProductInCart = function(req, res, next) {
         res.json(cartDetails);
       });
     } else {
-      Cart.findByIdAndUpdate({ _id: cartResult[0]._id }, { $push: { productId: req.body.productId } }, function(err, updatedCart) {
+      var isProductInCart = false,
+        indexProduct = 0;
+      cartResult[0].products.forEach(function(product, index) {
+        if (product.productId === req.body.product.productId) {
+          req.body.product.quantity = req.body.product.quantity + product.quantity;
+          indexProduct = index;
+          isProductInCart = true;
+        }
+      });
+      if (!isProductInCart) {
+        Cart.findByIdAndUpdate({ _id: cartResult[0]._id }, { $push: { products: req.body.product } }, function(err, updatedCart) {
+          if (err) {
+            res.status(404);
+            res.send(err);
+          }
+          res.json(updatedCart);
+        });
+      } else {
+        Cart.findByIdAndUpdate({ _id: cartResult[0]._id }, { $set: { 'products.0.quantity': req.body.product.quantity } }, function(err, updatedCart) {
+          if (err) {
+            res.status(404);
+            res.send(err);
+          }
+          updatedCart.products[0].quantity = req.body.product.quantity;
+          res.json(updatedCart);
+        });
+      }
+    }
+  });
+}
+
+// GET All Products in Cart by Customer ID
+
+module.exports.getProductsInCart = function(req, res) {
+  var products = [];
+  Cart.find({ customerId: req.params.customerId }, function(err, cartDetails) {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    }
+    if (cartDetails[0]) {
+      cartDetails[0].products.forEach((product) => {
+        products.push(product.productId);
+      });
+      Product.find({ _id: { $in: products } }, function(err, result) {
         if (err) {
           res.status(404);
           res.send(err);
         }
-        res.json(updatedCart);
+        res.json(result);
       });
+    } else {
+      res.status(404);
+      res.json({ message: 'Not Found' });
     }
-    //res.json(cartResult);
   });
-
 }

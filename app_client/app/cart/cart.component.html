@@ -1,0 +1,27 @@
+<h1>Your Cart</h1>
+<div class="container">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Product Stars</th>
+          <th>SellerName</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productDetails; let index = index">
+          <th scope="row"> {{ index +1 }}</th>
+          <th><img style="width:40px;" src="../../assets/iphone.jpg" alt="product"></th>
+          <td>{{ product.title }}</td>
+          <td>{{ product.productPrice | currency:'USD':true:'1.2-2'}}</td>
+          <td>{{ product.productStars }}</td>
+          <td>{{ product.sellerName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

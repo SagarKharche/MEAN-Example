@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './home/product-details/product-details.component';
 import { HeaderComponent } from './header/header.component';
+import { CartComponent } from './cart/cart.component';
 
 import { ROUTES } from './app.routes';
 
@@ -32,7 +33,8 @@ import { ROUTES } from './app.routes';
     RegisterComponent,
     HomeComponent,
     HeaderComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

@@ -29,5 +29,6 @@ router.post('/product', auth, ctrlProduct.addProduct);
 router.get('/products', auth, ctrlProduct.getAllProducts);
 router.get('/product/:id', auth, ctrlProduct.getProductById);
 router.post('/product/:productId/cart/:customerId', auth, ctrlProduct.saveProductInCart);
+router.get('/product/cart/:customerId', auth, ctrlProduct.getProductsInCart);
 
 module.exports = router;

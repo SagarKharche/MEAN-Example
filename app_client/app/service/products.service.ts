@@ -23,6 +23,10 @@ export class ProductsService {
   }
 
   public addProductToCart(params: any): Observable<any> {
-    return this.http.post('http://localhost:3000/api/product/' + params.productId + '/cart/' + params.customerId, params , this.authenticationService.createAuthHeader()).map(res => res.json());
+    return this.http.post('http://localhost:3000/api/product/' + params.product.productId + '/cart/' + params.customerId, params , this.authenticationService.createAuthHeader()).map(res => res.json());
+  }
+
+  public getAllCartDetails(customerId: string): Observable<any> {
+    return this.http.get('http://localhost:3000/api/product/cart/' + customerId, this.authenticationService.createAuthHeader()).map(res => res.json());
   }
 }

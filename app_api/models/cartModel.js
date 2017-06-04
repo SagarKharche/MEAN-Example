@@ -10,15 +10,17 @@ var cartSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  productId: {
-    type: Array,
-    required: true
-  },
-  quantity: {
-    type: Number,
-    required: true,
-    validate: [validateQunatity, 'Value should no be zero']
-  }
+  products: [{
+    productId: {
+      type: String,
+      required: true
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      validate: [validateQunatity, 'Qunatity should be greater than zeoro']
+    }
+  }]
 });
 
 mongoose.model('Cart', cartSchema);
