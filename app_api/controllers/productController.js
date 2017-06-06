@@ -41,6 +41,7 @@ module.exports.getProductById = function(req, res, next) {
 }
 
 // POST Save Cart by Product Id and Customer Id
+// We have to optimize this function with $setOnInsert
 module.exports.saveProductInCart = function(req, res, next) {
   var cart = new Cart();
   cart.products = req.body.product;
@@ -55,12 +56,9 @@ module.exports.saveProductInCart = function(req, res, next) {
         res.json(cartDetails);
       });
     } else {
-      var isProductInCart = false,
-        indexProduct = 0;
+      var isProductInCart = false;
       cartResult[0].products.forEach(function(product, index) {
         if (product.productId === req.body.product.productId) {
-          req.body.product.quantity = req.body.product.quantity + product.quantity;
-          indexProduct = index;
           isProductInCart = true;
         }
       });
@@ -73,12 +71,11 @@ module.exports.saveProductInCart = function(req, res, next) {
           res.json(updatedCart);
         });
       } else {
-        Cart.findByIdAndUpdate({ _id: cartResult[0]._id }, { $set: { 'products.0.quantity': req.body.product.quantity } }, function(err, updatedCart) {
+        Cart.update({ _id: cartResult[0]._id, "products.productId": req.body.product.productId }, { $inc: { 'products.$.quantity': req.body.product.quantity } }, function(err, updatedCart) {
           if (err) {
             res.status(404);
             res.send(err);
           }
-          updatedCart.products[0].quantity = req.body.product.quantity;
           res.json(updatedCart);
         });
       }
