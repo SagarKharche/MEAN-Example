@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
 var Cart = mongoose.model('Cart');
+var async = require('async');
 
 // POST create product 
 module.exports.addProduct = function(req, res, next) {
@@ -41,7 +42,6 @@ module.exports.getProductById = function(req, res, next) {
 }
 
 // POST Save Cart by Product Id and Customer Id
-// We have to optimize this function with $setOnInsert
 module.exports.saveProductInCart = function(req, res, next) {
   var cart = new Cart();
   cart.products = req.body.product;
@@ -86,26 +86,33 @@ module.exports.saveProductInCart = function(req, res, next) {
 // GET All Products in Cart by Customer ID
 
 module.exports.getProductsInCart = function(req, res) {
-  var products = [];
-  Cart.find({ customerId: req.params.customerId }, function(err, cartDetails) {
-    if (err) {
-      res.status(404);
-      res.send(err);
-    }
-    if (cartDetails[0]) {
-      cartDetails[0].products.forEach((product) => {
-        products.push(product.productId);
-      });
-      Product.find({ _id: { $in: products } }, function(err, result) {
+  async.waterfall([
+    function(callback) {
+      var products = [];
+      Cart.find({ customerId: req.params.customerId }, function(err, cartDetails) {
         if (err) {
           res.status(404);
           res.send(err);
         }
-        res.json(result);
+        if (cartDetails[0]) {
+          cartDetails[0].products.forEach((product) => {
+            products.push(product.productId);
+          });
+        }
+        callback(null, products);
       });
-    } else {
-      res.status(404);
-      res.json({ message: 'Not Found' });
+    },
+    function(productIds, callback) {
+      Product.find({ _id: { $in: productIds } }, function(err, result) {
+        if (err) {
+          res.status(404);
+          res.send(err);
+        }
+        callback(null, result)
+      });
+
     }
+  ], function(err, result) {
+    res.json(result);
   });
 }
